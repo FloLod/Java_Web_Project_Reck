@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#resources#xhtml#login.xhtml"
+  PATH="/resources/xhtml/login.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#resources#xhtml#login.xhtml:0" NAME="item"
+   PATH="/resources/xhtml/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success::#resources#xhtml#anzeigenReservierung.xhtml"
+    NAME="output" PATH="/resources/xhtml/anzeigenReservierung.xhtml"
+    TARGET="rules:#resources#xhtml#anzeigenReservierung.xhtml"
+    TITLE="success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="retry::#resources#xhtml#login.xhtml"
+    NAME="output1" PATH="/resources/xhtml/login.xhtml"
+    TARGET="rules:#resources#xhtml#login.xhtml" TITLE="retry" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#resources#xhtml#index.xhtml"
+  PATH="/resources/xhtml/index.xhtml" SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#resources#xhtml#index.xhtml:0" NAME="item"
+   PATH="/resources/xhtml/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success::#resources#xhtml#auswahlRoute.xhtml" NAME="output"
+    PATH="/resources/xhtml/auswahlRoute.xhtml"
+    TARGET="rules:#resources#xhtml#auswahlRoute.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="retry::#resources#xhtml#index.xhtml"
+    NAME="output1" PATH="/resources/xhtml/index.xhtml"
+    TARGET="rules:#resources#xhtml#index.xhtml" TITLE="retry" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#resources#xhtml#auswahlRoute.xhtml"
+  PATH="/resources/xhtml/auswahlRoute.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#resources#xhtml#auswahlRoute.xhtml:0"
+   NAME="item" PATH="/resources/xhtml/auswahlRoute.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#resources#xhtml#auswahlTrip.xhtml"
+    NAME="output" PATH="/resources/xhtml/auswahlTrip.xhtml"
+    TARGET="rules:#resources#xhtml#auswahlTrip.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="retry::#resources#xhtml#auswahlRoute.xhtml"
+    NAME="output1" PATH="/resources/xhtml/auswahlRoute.xhtml"
+    TARGET="rules:#resources#xhtml#auswahlRoute.xhtml" TITLE="retry" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#resources#xhtml#auswahlTrip.xhtml"
+  PATH="/resources/xhtml/auswahlTrip.xhtml" SHAPE="480,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#resources#xhtml#auswahlTrip.xhtml:0"
+   NAME="item" PATH="/resources/xhtml/auswahlTrip.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success::#resources#xhtml#eingabeReservierung.xhtml"
+    NAME="output" PATH="/resources/xhtml/eingabeReservierung.xhtml"
+    TARGET="rules:#resources#xhtml#eingabeReservierung.xhtml"
+    TITLE="success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="retry::#resources#xhtml#auswahlTrip.xhtml"
+    NAME="output1" PATH="/resources/xhtml/auswahlTrip.xhtml"
+    TARGET="rules:#resources#xhtml#auswahlTrip.xhtml" TITLE="retry" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#resources#xhtml#eingabeReservierung.xhtml"
+  PATH="/resources/xhtml/eingabeReservierung.xhtml" SHAPE="704,177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#resources#xhtml#eingabeReservierung.xhtml:0"
+   NAME="item" PATH="/resources/xhtml/eingabeReservierung.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="successSelect::#resources#xhtml#auswahlKundentyp.xhtml"
+    NAME="output" PATH="/resources/xhtml/auswahlKundentyp.xhtml"
+    TARGET="rules:#resources#xhtml#auswahlKundentyp.xhtml"
+    TITLE="successSelect" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="retry::#resources#xhtml#eingabeReservierung.xhtml"
+    NAME="output1" PATH="/resources/xhtml/eingabeReservierung.xhtml"
+    TARGET="rules:#resources#xhtml#eingabeReservierung.xhtml"
+    TITLE="retry" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#resources#xhtml#auswahlKundentyp.xhtml"
+  PATH="/resources/xhtml/auswahlKundentyp.xhtml" SHAPE="928,161,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#resources#xhtml#anzeigenReservierung.xhtml"
+  PATH="/resources/xhtml/anzeigenReservierung.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#resources#xhtml#anzeigenReservierung.xhtml:0"
+   NAME="item" PATH="/resources/xhtml/anzeigenReservierung.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="inserted::#resources#xhtml#index.xhtml"
+    NAME="output" PATH="/resources/xhtml/index.xhtml"
+    TARGET="rules:#resources#xhtml#index.xhtml" TITLE="inserted" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="insertionfailed::#resources#xhtml#anzeigenReservierung.xhtml"
+    NAME="output1" PATH="/resources/xhtml/anzeigenReservierung.xhtml"
+    TARGET="rules:#resources#xhtml#anzeigenReservierung.xhtml"
+    TITLE="insertionfailed" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

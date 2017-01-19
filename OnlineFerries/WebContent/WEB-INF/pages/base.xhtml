@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>#{msg.onlineferries_index_title1}</title>
+</h:head>
+
+<body>
+
+	<f:view>
+		<h:outputStylesheet library="css" name="style.css" />
+
+		<div class="header">
+			<h1>#{msg.onlineferries_welcome_message}</h1>
+			<h:panelGrid colums="2" cellpadding="10">
+				<h:form>
+					<h:commandLink action="#{localeHandler.changeLocale}">
+						<h:graphicImage library="images" name="FLGGERM.GIF" />
+						<f:param name="locale" value="de" />
+					</h:commandLink>
+					<h:commandLink action="#{localeHandler.changeLocale}">
+						<h:graphicImage library="images" name="FLGUK.GIF" />
+						<f:param name="locale" value="en" />
+					</h:commandLink>
+				</h:form>
+			</h:panelGrid>
+		</div>
+
+		<div class="row">
+
+			<div class="col-3">
+				<h:form>
+					<h:panelGrid columns="1">
+						<h:button outcome="login.xhtml"
+							value="#{msg.onlineferries_index_submit1}" />
+						<h:commandButton action="#{routeHandler.routes()}"
+							value="#{msg.onlineferries_index_submit2}" />
+					</h:panelGrid>
+				</h:form>
+			</div>
+
+			<div class="col-6">
+				<ui:insert name="content"></ui:insert>
+			</div>
+
+			<div class="col-3 right">
+				<div class="aside">
+					<h2>#{msg.onlineferries_index_title2}</h2>
+					<div>
+						<h:graphicImage library="images" name="schiff.GIF" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="footer">
+			<p id="footer">Resize the browser window to see how the content
+				respond to the resizing.</p>
+		</div>
+
+	</f:view>
+
+</body>
+
+</html>

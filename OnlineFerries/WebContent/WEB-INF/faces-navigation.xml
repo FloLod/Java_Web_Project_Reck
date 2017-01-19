@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<navigation-rule>
+		<description>Login</description>
+		<from-view-id>/resources/xhtml/login.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>success</from-outcome>
+				<to-view-id>/resources/xhtml/anzeigenReservierung.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>retry</from-outcome>
+				<to-view-id>/resources/xhtml/login.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<description>Routes</description>
+		<from-view-id>/resources/xhtml/index.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>success</from-outcome>
+				<to-view-id>/resources/xhtml/auswahlRoute.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>retry</from-outcome>
+				<to-view-id>/resources/xhtml/index.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Trips</description>
+		<from-view-id>/resources/xhtml/auswahlRoute.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>success</from-outcome>
+				<to-view-id>/resources/xhtml/auswahlTrip.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>retry</from-outcome>
+				<to-view-id>/resources/xhtml/auswahlRoute.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Reservation</description>
+		<from-view-id>/resources/xhtml/auswahlTrip.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>success</from-outcome>
+				<to-view-id>/resources/xhtml/eingabeReservierung.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>retry</from-outcome>
+				<to-view-id>/resources/xhtml/auswahlTrip.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>ShowOverview</description>
+		<from-view-id>/resources/xhtml/eingabeReservierung.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>successSelect</from-outcome>
+				<to-view-id>/resources/xhtml/auswahlKundentyp.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>retry</from-outcome>
+				<to-view-id>/resources/xhtml/eingabeReservierung.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>SaveData</description>
+		<from-view-id>/resources/xhtml/anzeigenReservierung.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>inserted</from-outcome>
+				<to-view-id>/resources/xhtml/index.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>insertionfailed</from-outcome>
+				<to-view-id>/resources/xhtml/anzeigenReservierung.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+</faces-config>
