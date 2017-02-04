@@ -8,16 +8,25 @@ public class CustomerView implements Serializable {
 
 	private int customer_id;
 	private String firstname;
-	private String lastname;
+	private String name;
 	private String password;
 
-	public CustomerView() {}
+	private String street;
+	private String zipcode;
+	private String city;
+	private String email;
+	private int account_nr;
+	private BankView bank;
+
+	public CustomerView() {
+		bank = new BankView();
+	}
 	
 	public CustomerView(int customer_id, String firstname, String lastname, String password) {
 		super();
 		this.customer_id = customer_id;
 		this.firstname = firstname;
-		this.lastname = lastname;
+		this.name = lastname;
 		this.password = password;
 	}
 
@@ -37,12 +46,12 @@ public class CustomerView implements Serializable {
 		this.firstname = firstname;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getName() {
+		return name;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setName(String lastname) {
+		this.name = lastname;
 	}
 
 	public String getPassword() {
@@ -52,4 +61,54 @@ public class CustomerView implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public BankView getBank() {
+		return bank;
+	}
+
+	public void setBank(BankView bank) {
+		this.bank = bank;
+	}
+
+	public int getAccount_nr() {
+		return account_nr;
+	}
+
+	public void setAccount_nr(int account_nr) {
+		this.account_nr = account_nr;
+	}	
+	
+	
 }

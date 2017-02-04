@@ -3,12 +3,17 @@ package de.onlineferries.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @NamedQueries( {
 	@NamedQuery(
@@ -28,8 +33,8 @@ public class Customer implements Serializable {
 	String zipcode;
 	String city;
 	String email;
-	Integer account_nr;
-	Integer bank_id;
+	int account_nr;
+	Bank bank;
 	String password;
 	
 	Set<Reservation> reservations;
@@ -44,7 +49,7 @@ public class Customer implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
 	public Integer getId() {
 		return id;
 	}
@@ -105,22 +110,6 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public Integer getAccount_nr() {
-		return account_nr;
-	}
-
-	public void setAccount_nr(Integer account_nr) {
-		this.account_nr = account_nr;
-	}
-
-	public Integer getBank_id() {
-		return bank_id;
-	}
-
-	public void setBank_id(Integer bank_id) {
-		this.bank_id = bank_id;
-	}
-
 	@OneToMany(mappedBy="customer")
 	public Set<Reservation> getReservations() {
 		return reservations;
@@ -129,5 +118,25 @@ public class Customer implements Serializable {
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="bank_id")
+	public Bank getBank() {
+		return bank;
+	}
+
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
+	
+	public int getAccount_nr() {
+		return account_nr;
+	}
+
+	public void setAccount_nr(int account_nr) {
+		this.account_nr = account_nr;
+	}
+	
+	
 
 }

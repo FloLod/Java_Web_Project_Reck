@@ -93,15 +93,11 @@ public class ReservationHandler implements Serializable {
 
 			reservationPrice = service.getReservationService().getReservationPrice(tripHandler.getTrip().getTrip_id(), selectedShipCabins,
 					cars, travellers);
-			return "successSelect";
+			return "goToLogin";
 		} catch (Exception e) {
 			return "retry";
 		}
 
-	}
-
-	public String registration() {
-		return "";
 	}
 
 	public void validateTravellerName() {

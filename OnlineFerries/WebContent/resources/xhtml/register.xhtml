@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core">
+		
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>#{msg.onlineferries_login_title}</title>
+</h:head>
+<ui:composition template="/WEB-INF/pages/base.xhtml">
+	<ui:define name="content">	
+		<p style="text-align:center">		
+			<h:form>
+				<h:panelGrid columns ="2">
+					<f:facet name="header">#{msg.onlineferries_register}</f:facet>
+					<h:outputLabel value="Benutzername" for="username"/>
+					<h:inputText id="username" value="#{loginHandler.customer.email}" 
+						required ="true" requiredMessage="#{msg.onlineferries_login_form_required_username}" validator="#{loginHandler.validateUsername}"/>
+						
+					<h:outputLabel value="passwort" for="password"/>
+					<h:inputSecret id="password" value="#{loginHandler.customer.password}" 
+						required ="true" requiredMessage="passwort" validator="#{loginHandler.validatePassword}"/>
+												
+					
+					<h:outputLabel value="Name" for="name"/>
+					<h:inputText id="name" value="#{loginHandler.customer.name}" 
+						required ="true" requiredMessage="req"/>
+					
+					
+					<h:outputLabel value="Vorname" for="firstname"/>
+					<h:inputText id="firstname" value="#{loginHandler.customer.firstname}" 
+						required ="true" requiredMessage="req"/>
+					
+					
+					<h:outputLabel value="Straße" for="street"/>
+					<h:inputText id="street" value="#{loginHandler.customer.street}" 
+						required ="true" requiredMessage="req"/>
+					
+					
+					<h:outputLabel value="Postleitzahl" for="zipcode"/>
+					<h:inputText id="zipcode" value="#{loginHandler.customer.zipcode}" 
+						required ="true" requiredMessage="req"/>
+					
+					
+					<h:outputLabel value="Ort" for="city"/>
+					<h:inputText id="city" value="#{loginHandler.customer.city}" 
+						required ="true" requiredMessage="req"/>
+										
+					
+					<h:outputLabel value="Kontonummer" for="account_nr"/>
+					<h:inputText id="account_nr" value="#{loginHandler.customer.account_nr}" 
+						required ="true" requiredMessage="req"/>
+					
+					
+					<h:outputLabel value="Banknummer" for="bank_id"/>
+					<h:inputText id="bank_id" value="#{loginHandler.customer.bank.id}" 
+						required ="true" requiredMessage="req"/>
+					
+					<h:outputLabel value="BankName" for="description"/>
+					<h:inputText id="description" value="#{loginHandler.customer.bank.description}" 
+						required ="true" requiredMessage="req"/>
+					
+					<h:commandButton action="#{loginHandler.register}" value="#{msg.onlineferries_register}"/>	
+				</h:panelGrid>
+			</h:form>
+		</p>
+	</ui:define>
+</ui:composition>
+
+</html>

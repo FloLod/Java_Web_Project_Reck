@@ -33,19 +33,6 @@ public class ReservationServiceImpl implements Serializable, ReservationService 
 	public void insertReservation(ReservationView res) {
 		EntityManager em = EntityManagerFactoryService.getEntityManagerFactory().createEntityManager();
 		Reservation reservation = new Reservation();
-		// List<ShipCabin> shipCabins;
-		// for(ShipCabinView cab : res.getShipCabins()){
-		// ShipCabin shipcab = new ShipCabin();
-		// Cabin c = new Cabin();
-		//
-		// shipcab.setCount(cab.getCount());
-		// shipcab.setPrice(cab.getPrice());
-		// shipcab.setCabin(em.find(Cabin.class, cab.getCabin_id()));
-		//
-		// shipcab.setShip(em.find(cab.get));
-		// shipcab.setCabin();
-		// shipCabins.add()
-		// }
 
 		em.getTransaction().begin();
 		Customer c = em.find(Customer.class, res.getCustomer().getCustomer_id());

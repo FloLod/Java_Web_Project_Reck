@@ -17,6 +17,28 @@
 			</navigation-case>
 	</navigation-rule>
 	
+	<navigation-rule>
+		<description>Register</description>
+		<from-view-id>/resources/xhtml/register.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>registered</from-outcome>
+				<to-view-id>/resources/xhtml/anzeigenReservierung.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>registerationfailed</from-outcome>
+				<to-view-id>/resources/xhtml/register.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>startRegister</description>
+		<from-view-id>/resources/xhtml/auswahlKundentyp.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>startRegister</from-outcome>
+				<to-view-id>/resources/xhtml/register.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
 	
 	<navigation-rule>
 		<description>Routes</description>
@@ -61,7 +83,7 @@
 		<description>ShowOverview</description>
 		<from-view-id>/resources/xhtml/eingabeReservierung.xhtml</from-view-id>
 			<navigation-case>
-				<from-outcome>successSelect</from-outcome>
+				<from-outcome>goToLogin</from-outcome>
 				<to-view-id>/resources/xhtml/auswahlKundentyp.xhtml</to-view-id>
 			</navigation-case>
 			<navigation-case>
@@ -69,6 +91,7 @@
 				<to-view-id>/resources/xhtml/eingabeReservierung.xhtml</to-view-id>
 			</navigation-case>
 	</navigation-rule>
+		
 	
 	<navigation-rule>
 		<description>SaveData</description>

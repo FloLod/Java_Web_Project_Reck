@@ -5,4 +5,6 @@ import de.onlineferries.view.CustomerView;
 public interface LoginService {
 
 	CustomerView login(String username, String password);
+	
+	boolean register(CustomerView customer);
 }

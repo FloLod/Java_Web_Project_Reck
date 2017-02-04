@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 import de.onlineferries.model.service.LoginService;
+import de.onlineferries.view.BankView;
 import de.onlineferries.view.CustomerView;
 
 @ManagedBean
@@ -36,7 +37,22 @@ public class LoginHandler implements Serializable  {
 			return "retry";
 		return "success";
 	}
+	
+	public String register(){
+		LoginService loginService = serviceLocator.getLoginService();
+		if(loginService.register(customer)){
+			return "registered";
+		}
+		return "registerationfailed";
+		
+	}
 
+	public String startRegister(){
+		customer = new CustomerView();
+		customer.setBank(new BankView());
+		System.out.println("startRegister");
+		return "startRegister";
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -56,6 +72,7 @@ public class LoginHandler implements Serializable  {
 	public CustomerView getCustomer() { return customer; }
 	public void setCustomer(CustomerView customer) { this.customer = customer; }
 	
+		
 	public void validateUsername(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {
 			
