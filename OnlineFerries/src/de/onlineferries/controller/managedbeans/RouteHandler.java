@@ -25,6 +25,8 @@ public class RouteHandler implements Serializable {
 
 	@ManagedProperty("#{serviceLocatorBean}")
 	private ServiceLocator service;
+//	@ManagedProperty("#{loginHandler}")
+//	private LoginHandler loginHandler;
 
 	private ShipView ship;
 	private List<RouteView> list;

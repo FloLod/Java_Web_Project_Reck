@@ -11,6 +11,16 @@ public class ReservationView implements Serializable {
 	private List<ShipCabinView> shipCabins;
 	private int cars;
 	private List<TravellerView> travellerNames;
+	private RouteView route;
+	
+
+	public RouteView getRoute() {
+		return route;
+	}
+
+	public void setRoute(RouteView route) {
+		this.route = route;
+	}
 
 	public int getReservation_id() {
 		return reservation_id;

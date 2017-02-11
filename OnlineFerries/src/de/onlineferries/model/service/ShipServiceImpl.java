@@ -36,8 +36,10 @@ public class ShipServiceImpl implements Serializable, ShipService {
 		Ship ship = query.getSingleResult();
 		List<ShipCabinView> cabins = new ArrayList<ShipCabinView>();
 		for (ShipCabin cab : ship.getShipCabin()) {
-			cabins.add(new ShipCabinView(cab.getCabin().getId(), cab.getCabin().getDescription(), cab.getCabin().getPassengers(), cab
-					.getPrice()));
+			ShipCabinView shipcab = new ShipCabinView(cab.getCabin().getId(), cab.getCabin().getDescription(), cab.getCabin().getPassengers(), cab
+					.getPrice());
+			shipcab.setCabin_index(cab.getCabin_index());
+			cabins.add(shipcab);
 		}
 		return cabins;
 	}

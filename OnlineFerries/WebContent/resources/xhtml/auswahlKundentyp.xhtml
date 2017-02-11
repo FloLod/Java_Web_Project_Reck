@@ -67,7 +67,7 @@
 				</h:form>
 				<h:form>
 					<h:outputText value="#{msg.onlineferries_showres_oldCustomer}"/><h:outputText value = "  "/>
-					<h:button outcome="login.xhtml" value="#{msg.onlineferries_showres_goLogin}"/>				
+					<h:button outcome="#{loginHandler.prepareLogin('reservieren')}" value="#{msg.onlineferries_showres_goLogin}"/>				
 				</h:form>
 			</h:panelGrid>
 				

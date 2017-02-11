@@ -38,10 +38,12 @@
 			<div class="col-3">
 				<h:form>
 					<h:panelGrid columns="1">
-						<h:button outcome="login.xhtml"
-							value="#{msg.onlineferries_index_submit1}" />
 						<h:commandButton action="#{routeHandler.routes()}"
 							value="#{msg.onlineferries_index_submit2}" />
+						<h:commandButton action="#{loginHandler.prepareLogin('showRoutes')}"
+							value="#{msg.onlineferries_index_submit1}"/>
+						<h:commandButton
+							value="#{msg.onlineferries_index_submit3}"/>
 					</h:panelGrid>
 				</h:form>
 			</div>

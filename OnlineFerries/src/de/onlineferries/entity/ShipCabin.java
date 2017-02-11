@@ -20,6 +20,7 @@ public class ShipCabin implements Serializable {
 	private Cabin cabin;
 	private int count;
 	private double price;
+	private int cabin_index;
 	
 	@Id
 	@ManyToOne(optional=false)
@@ -51,6 +52,12 @@ public class ShipCabin implements Serializable {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public int getCabin_index() {
+		return cabin_index;
+	}
+	public void setCabin_index(int cabin_index) {
+		this.cabin_index = cabin_index;
 	}
 
 }

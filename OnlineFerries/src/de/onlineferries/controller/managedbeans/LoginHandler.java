@@ -24,18 +24,41 @@ public class LoginHandler implements Serializable  {
 	private String username;
 	private String password;
 	private CustomerView customer;
+	private boolean login;
+	private String next;
 
 	@ManagedProperty("#{serviceLocatorBean}")
 	private ServiceLocator serviceLocator;
 	public ServiceLocator getServiceLocator() { return serviceLocator; }
 	public void setServiceLocator(ServiceLocator serviceLocatorBean) { this.serviceLocator = serviceLocatorBean; }
-		
+	
+	@ManagedProperty("#{reservationHandler}")
+	private ReservationHandler reservationHandler;
+	public ReservationHandler getReservationHandler(){return reservationHandler;}
+	public void setReservationHandler(ReservationHandler reservationHandler){this.reservationHandler = reservationHandler;}
+	
+	
+	public LoginHandler() {
+		login =false;
+	}
+	
+	public String prepareLogin(String nextPage){
+		if(login) return nextPage.concat("ohnelogin");
+		this.next = nextPage;
+		return "Login";
+	}
+	
 	public String login() {
 		LoginService loginService = serviceLocator.getLoginService();
 		customer = loginService.login(username, password);
 		if (customer == null)
 			return "retry";
-		return "success";
+		login = true;
+		
+		if("showRoutes".equals(this.next)) reservationHandler.showRoutes(customer);
+		if("reservieren".equals(this.next)) reservationHandler.setCustomer(customer);
+		
+		return this.next;
 	}
 	
 	public String register(){
@@ -53,6 +76,7 @@ public class LoginHandler implements Serializable  {
 		System.out.println("startRegister");
 		return "startRegister";
 	}
+	
 	public String getUsername() {
 		return username;
 	}

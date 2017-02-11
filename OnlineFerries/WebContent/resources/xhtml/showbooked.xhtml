@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Success</title>
+</head>
+
+<ui:composition template="/WEB-INF/pages/base.xhtml">
+	<ui:define name="content">
+		<f:view>
+			<h:form>
+				<h:dataTable value="#{reservationHandler.reserved}" var="res" >
+					<h:column>
+						<f:facet name="header">#{msg.onlineferries_showbooked_trip}</f:facet>
+							<h:panelGrid columns="2">
+								<h:outputLabel value="Abfahrtsdatum:" />
+								<h:outputLabel value="#{res.trip.date}"/>
+								<h:outputLabel value="Abfahrtszeit:" />
+								<h:outputLabel value="#{res.trip.departure}"/>
+								<h:outputLabel value="Ankunftszeit:" />
+								<h:outputLabel value="#{res.trip.arrival}"/>	
+							</h:panelGrid>
+						</h:column>				
+					
+					<h:column>
+						<f:facet name="header">#{msg.onlineferries_showbooked_cabins}</f:facet>
+						<h:dataTable value="#{res.shipCabins}" var="cab">
+							<h:column>
+								<f:facet name="header">Kabienentyp</f:facet>
+								<h:outputText value="#{cab.cabinDescr}"/>	
+							</h:column>				
+							
+							<h:column>
+								<f:facet name="header">Preis</f:facet>
+								<h:outputText value="#{cab.price}"/>						
+							</h:column>
+						
+							<h:column>							
+								<f:facet name="header">Gebuchte Anzahl</f:facet>
+								<h:outputText value="#{cab.res_count}"/>						
+							</h:column>
+						
+							<h:column>							
+								<f:facet name="header">Gesamtkosten Kabienenbuchung</f:facet>
+								<h:outputText value="#{cab.res_count * cab.price}"/>						
+							</h:column>
+						</h:dataTable>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">#{msg.onlineferries_res_cars}</f:facet>
+						<h:outputText value="#{res.cars}" />				
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">#{msg.onlineferries_showbooked_travelers}</f:facet>
+						<h:dataTable value="#{res.travellerNames}" var="coTraveler">
+							<h:column>
+								<h:outputText value="#{coTraveler.name}"></h:outputText>
+							</h:column>
+						</h:dataTable>
+					</h:column>
+					
+					<h:column>
+						<h:commandLink value="Edit Trip" action="#{reservationHandler.prepareReservation(res)}"/>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>
+</html>

@@ -11,12 +11,21 @@ public class RouteView implements Serializable {
 	private int route_id;
 	String start;
 	String destination;
+	private ShipView ship;
 
 	public RouteView(int route_id, String start, String destination) {
 		super();
 		this.route_id = route_id;
 		this.start = start;
 		this.destination = destination;
+	}
+
+	public ShipView getShip() {
+		return ship;
+	}
+
+	public void setShip(ShipView ship) {
+		this.ship = ship;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ public class ShipCabinView implements Serializable {
 	private int count;
 	private double price;
 	private int res_count;
+	private int cabin_index;
 
 	public ShipCabinView(int cabin_id, String cabinDescr, int count, double price) {
 		super();
@@ -59,4 +60,11 @@ public class ShipCabinView implements Serializable {
 		this.res_count = res_count;
 	}
 
+	public int getCabin_index() {
+		return cabin_index;
+	}
+
+	public void setCabin_index(int cabin_index) {
+		this.cabin_index = cabin_index;
+	}
 }

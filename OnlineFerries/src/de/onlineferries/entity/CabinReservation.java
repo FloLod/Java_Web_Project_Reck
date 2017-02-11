@@ -19,6 +19,7 @@ public class CabinReservation implements Serializable  {
 	private Cabin cabin;
 	private Reservation reservation;
 	private int count;
+	int cabin_index;
 	
 	@Id
 	@ManyToOne(optional=false)
@@ -45,6 +46,12 @@ public class CabinReservation implements Serializable  {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public int getCabin_index() {
+		return cabin_index;
+	}
+	public void setCabin_index(int cabin_index) {
+		this.cabin_index = cabin_index;
 	}
 
 

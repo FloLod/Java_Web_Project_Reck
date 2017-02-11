@@ -8,13 +8,39 @@
 		<description>Login</description>
 		<from-view-id>/resources/xhtml/login.xhtml</from-view-id>
 			<navigation-case>
-				<from-outcome>success</from-outcome>
+				<from-outcome>reservieren</from-outcome>
 				<to-view-id>/resources/xhtml/anzeigenReservierung.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>showRoutes</from-outcome>
+				<to-view-id>/resources/xhtml/showbooked.xhtml</to-view-id>
 			</navigation-case>
 			<navigation-case>
 				<from-outcome>retry</from-outcome>
 				<to-view-id>/resources/xhtml/login.xhtml</to-view-id>
 			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>to SubPage by Button</description>
+		<from-view-id>*</from-view-id>
+			<navigation-case>
+				<from-outcome>Login</from-outcome>
+				<to-view-id>/resources/xhtml/login.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>showRoutesohnelogin</from-outcome>
+				<to-view-id>/resources/xhtml/showbooked.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>edit Reservation</description>
+		<from-view-id>/resources/xhtml/showbooked.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>editReservation</from-outcome>
+			<to-view-id>/resources/xhtml/eingabeReservierung.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
@@ -36,6 +62,10 @@
 			<navigation-case>
 				<from-outcome>startRegister</from-outcome>
 				<to-view-id>/resources/xhtml/register.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>reservierenohnelogin</from-outcome>
+				<to-view-id>/resources/xhtml/anzeigenReservierung.xhtml</to-view-id>
 			</navigation-case>
 	</navigation-rule>
 	

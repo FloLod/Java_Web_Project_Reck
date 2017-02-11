@@ -12,6 +12,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import de.onlineferries.model.service.ReservationService;
 import de.onlineferries.model.service.ShipService;
+import de.onlineferries.view.CustomerView;
 import de.onlineferries.view.ReservationView;
 import de.onlineferries.view.ShipCabinView;
 import de.onlineferries.view.TravellerView;
@@ -28,8 +29,6 @@ public class ReservationHandler implements Serializable {
 	private RouteHandler routeHandler;
 	@ManagedProperty("#{tripHandler}")
 	private TripHandler tripHandler;
-	@ManagedProperty("#{loginHandler}")
-	private LoginHandler loginHandler;
 
 	private List<ShipCabinView> shipCabins;
 	private int cars;
@@ -37,28 +36,48 @@ public class ReservationHandler implements Serializable {
 	private double reservationPrice;
 	private List<TravellerView> travellerNames;
 	private List<ShipCabinView> selectedShipCabins;
-
+	private List<ReservationView> reserved;
+	private CustomerView customer;
+	private ReservationView reservation;
+	
+	
 	public int[] getTravellerValues() {
 		return new int[] { 0, 1, 2, 3, 4, 5, 6 };
 	}
+	
+	public String prepareReservation(ReservationView reservation)
+	{
+		this.reservation = reservation;
+		ShipService shipService = service.getShipService();
+		shipCabins = shipService.findAllShipCabins(reservation.getRoute().getShip().getShip_id());
+		
+		routeHandler.setRoute(reservation.getRoute());
+		routeHandler.setShip(reservation.getRoute().getShip());
+		
+		cars = reservation.getCars();
+		travellers = reservation.getTravellerNames().size();
+		travellerNames = reservation.getTravellerNames();
 
-	public String saveReservation() {
-		try {
-			ReservationService resservice = service.getReservationService();
-			ReservationView res = new ReservationView();
+		customer = reservation.getCustomer();
 
-			res.setCars(cars);
-			res.setShipCabins(selectedShipCabins);
-			res.setTravellerNames(travellerNames);
-			res.setTrip(tripHandler.getTrip());
-			res.setCustomer(loginHandler.getCustomer());
-
-			resservice.insertReservation(res);
-			return "inserted";
-		} catch (Exception e) {
-			return "insertionfailed";
+		tripHandler.setTrip(reservation.getTrip());
+		
+		for(ShipCabinView scv : reservation.getShipCabins()){
+			for(ShipCabinView sc : shipCabins){
+				if(sc.getCabin_index() == scv.getCabin_index())
+					sc.setRes_count(scv.getCount());
+			}
 		}
-
+		travellerNames = new ArrayList<TravellerView>();
+		selectedShipCabins = new ArrayList<ShipCabinView>();
+		return "editReservation";
+	}
+	
+	public void showRoutes(CustomerView customer)
+	{
+		reserved = service.getReservationService().getReservations(customer);
+		this.customer = customer;
+		
 	}
 
 	public String reservate() {
@@ -66,6 +85,7 @@ public class ReservationHandler implements Serializable {
 			ShipService shipService = service.getShipService();
 			shipCabins = shipService.findAllShipCabins(routeHandler.getShip().getShip_id());
 			selectedShipCabins = new ArrayList<ShipCabinView>();
+			travellerNames = new ArrayList<TravellerView>();
 			return "success";
 		} catch (Exception e) {
 			return "retry";
@@ -85,30 +105,60 @@ public class ReservationHandler implements Serializable {
 	}
 
 	public String selectCustomerType() {
-		try {
-			for (ShipCabinView cab : shipCabins) {
-				if (cab.getRes_count() > 0)
-					selectedShipCabins.add(cab);
+		if(spacefree()) {			
+			try {
+				for (ShipCabinView cab : shipCabins) {
+					if (cab.getRes_count() > 0)
+						selectedShipCabins.add(cab);
+				}
+	
+				reservationPrice = service.getReservationService().getReservationPrice(tripHandler.getTrip().getTrip_id(), selectedShipCabins,
+						cars, travellers);
+				return "goToLogin";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "retry";
 			}
-
-			reservationPrice = service.getReservationService().getReservationPrice(tripHandler.getTrip().getTrip_id(), selectedShipCabins,
-					cars, travellers);
-			return "goToLogin";
-		} catch (Exception e) {
+		}
+		else
 			return "retry";
+	}
+
+	public String saveReservation() {
+		try {
+			ReservationService resservice = service.getReservationService();
+
+			ReservationView res = new ReservationView();
+			res.setCars(cars);
+			res.setShipCabins(selectedShipCabins);
+			res.setTravellerNames(travellerNames);
+			res.setTrip(tripHandler.getTrip());
+			res.setCustomer(customer);
+
+			if(null != reservation){
+				System.out.println("update");
+				res.setReservation_id(reservation.getReservation_id());
+				res.setRoute(reservation.getRoute());
+
+				resservice.updateReservation(reservation);
+				reservation = null;
+				
+			}else
+				resservice.insertReservation(res);
+			
+			return "inserted";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "insertionfailed";
 		}
 
 	}
-
+	
 	public void validateTravellerName() {
 	}
 
-	public LoginHandler getLoginHandler() {
-		return loginHandler;
-	}
-
-	public void setLoginHandler(LoginHandler loginHandler) {
-		this.loginHandler = loginHandler;
+	private boolean spacefree(){
+		return true;
 	}
 
 	public double getReservationPrice() {
@@ -181,5 +231,21 @@ public class ReservationHandler implements Serializable {
 
 	public void setTravellerNames(List<TravellerView> travellerNames) {
 		this.travellerNames = travellerNames;
+	}
+
+	public List<ReservationView> getReserved() {
+		return reserved;
+	}
+
+	public void setReserved(List<ReservationView> reserved) {
+		this.reserved = reserved;
+	}
+
+	public CustomerView getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerView customer) {
+		this.customer = customer;
 	}
 }

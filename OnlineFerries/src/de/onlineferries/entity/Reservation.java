@@ -46,7 +46,7 @@ public class Reservation implements Serializable  {
 		this.trip = trip;
 	}
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="customer_id")
 	public Customer getCustomer() {
 		return customer;
