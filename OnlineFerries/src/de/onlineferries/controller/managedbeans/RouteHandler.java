@@ -37,7 +37,7 @@ public class RouteHandler implements Serializable {
 			list = service.getRouteService().findAllRoutes();
 			route = list.get(0);
 			ship = service.getShipService().findShip(route.getRoute_id());
-			return "success";
+			return "listroutes";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "retry";

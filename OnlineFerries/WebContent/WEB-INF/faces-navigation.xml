@@ -16,13 +16,17 @@
 				<to-view-id>/resources/xhtml/showbooked.xhtml</to-view-id>
 			</navigation-case>
 			<navigation-case>
+				<from-outcome>updateUser</from-outcome>
+				<to-view-id>/resources/xhtml/updateUserdata.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
 				<from-outcome>retry</from-outcome>
 				<to-view-id>/resources/xhtml/login.xhtml</to-view-id>
 			</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
-		<description>to SubPage by Button</description>
+		<description>to SubPage without login</description>
 		<from-view-id>*</from-view-id>
 			<navigation-case>
 				<from-outcome>Login</from-outcome>
@@ -32,6 +36,27 @@
 				<from-outcome>showRoutesohnelogin</from-outcome>
 				<to-view-id>/resources/xhtml/showbooked.xhtml</to-view-id>
 			</navigation-case>
+			<navigation-case>
+				<from-outcome>updateUserohnelogin</from-outcome>
+				<to-view-id>/resources/xhtml/updateUserdata.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>reservierenohnelogin</from-outcome>
+				<to-view-id>/resources/xhtml/anzeigenReservierung.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>listroutes</from-outcome>
+				<to-view-id>/resources/xhtml/auswahlRoute.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>updateUserdata</description>
+		<from-view-id>/resources/xhtml/updateUserdata.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>update</from-outcome>
+			<to-view-id>/resources/xhtml/welcome.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
@@ -69,25 +94,11 @@
 			</navigation-case>
 	</navigation-rule>
 	
-	
-	<navigation-rule>
-		<description>Routes</description>
-		<from-view-id>/resources/xhtml/index.xhtml</from-view-id>
-			<navigation-case>
-				<from-outcome>success</from-outcome>
-				<to-view-id>/resources/xhtml/auswahlRoute.xhtml</to-view-id>
-			</navigation-case>
-			<navigation-case>
-				<from-outcome>retry</from-outcome>
-				<to-view-id>/resources/xhtml/index.xhtml</to-view-id>
-			</navigation-case>
-	</navigation-rule>
-	
 	<navigation-rule>
 		<description>Trips</description>
 		<from-view-id>/resources/xhtml/auswahlRoute.xhtml</from-view-id>
 			<navigation-case>
-				<from-outcome>success</from-outcome>
+				<from-outcome>showTrips</from-outcome>
 				<to-view-id>/resources/xhtml/auswahlTrip.xhtml</to-view-id>
 			</navigation-case>
 			<navigation-case>
@@ -100,7 +111,7 @@
 		<description>Reservation</description>
 		<from-view-id>/resources/xhtml/auswahlTrip.xhtml</from-view-id>
 			<navigation-case>
-				<from-outcome>success</from-outcome>
+				<from-outcome>selectCabins</from-outcome>
 				<to-view-id>/resources/xhtml/eingabeReservierung.xhtml</to-view-id>
 			</navigation-case>
 			<navigation-case>
@@ -128,7 +139,7 @@
 		<from-view-id>/resources/xhtml/anzeigenReservierung.xhtml</from-view-id>
 			<navigation-case>
 				<from-outcome>inserted</from-outcome>
-				<to-view-id>/resources/xhtml/index.xhtml</to-view-id>
+				<to-view-id>/resources/xhtml/welcome.xhtml</to-view-id>
 			</navigation-case>
 			<navigation-case>
 				<from-outcome>insertionfailed</from-outcome>

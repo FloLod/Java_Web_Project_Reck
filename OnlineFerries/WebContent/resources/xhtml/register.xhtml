@@ -17,11 +17,11 @@
 			<h:form>
 				<h:panelGrid columns ="2">
 					<f:facet name="header">#{msg.onlineferries_register}</f:facet>
-					<h:outputLabel value="Benutzername" for="username"/>
+					<h:outputLabel value="#{msg.onlineferries_login_form_username}" for="username"/>
 					<h:inputText id="username" value="#{loginHandler.customer.email}" 
 						required ="true" requiredMessage="#{msg.onlineferries_login_form_required_username}" validator="#{loginHandler.validateUsername}"/>
 						
-					<h:outputLabel value="passwort" for="password"/>
+					<h:outputLabel value="#{msg.onlineferries_login_form_password}" for="password"/>
 					<h:inputSecret id="password" value="#{loginHandler.customer.password}" 
 						required ="true" requiredMessage="passwort" validator="#{loginHandler.validatePassword}"/>
 												

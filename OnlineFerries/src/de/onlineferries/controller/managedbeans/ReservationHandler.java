@@ -8,8 +8,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 import javax.faces.event.ValueChangeEvent;
 
+import de.onlineferries.model.service.FreeSpaceService;
 import de.onlineferries.model.service.ReservationService;
 import de.onlineferries.model.service.ShipService;
 import de.onlineferries.view.CustomerView;
@@ -17,6 +19,10 @@ import de.onlineferries.view.ReservationView;
 import de.onlineferries.view.ShipCabinView;
 import de.onlineferries.view.TravellerView;
 
+/**
+ * @author Florian
+ *
+ */
 @ManagedBean
 @SessionScoped
 public class ReservationHandler implements Serializable {
@@ -40,13 +46,34 @@ public class ReservationHandler implements Serializable {
 	private CustomerView customer;
 	private ReservationView reservation;
 	
+	private boolean missingspacecars;
+	private boolean missingspacetravellers;
+	private boolean missingspacea1;
+	private boolean missingspacea2;
+	private boolean missingspaceb1;
+	private boolean missingspaceb2;
+	private boolean missingspacec1;
+	private boolean missingspacec2;
+	
 	
 	public int[] getTravellerValues() {
 		return new int[] { 0, 1, 2, 3, 4, 5, 6 };
 	}
 	
+	private void init(){
+		missingspacecars = false;
+		missingspacetravellers= false;
+	    missingspacea1= false;
+	    missingspacea2= false;
+	    missingspaceb1= false;
+	    missingspaceb2= false;
+	    missingspacec1= false;
+	    missingspacec2= false;
+	}
+	
 	public String prepareReservation(ReservationView reservation)
 	{
+		init();
 		this.reservation = reservation;
 		ShipService shipService = service.getShipService();
 		shipCabins = shipService.findAllShipCabins(reservation.getRoute().getShip().getShip_id());
@@ -82,11 +109,12 @@ public class ReservationHandler implements Serializable {
 
 	public String reservate() {
 		try {
+			init();
 			ShipService shipService = service.getShipService();
 			shipCabins = shipService.findAllShipCabins(routeHandler.getShip().getShip_id());
 			selectedShipCabins = new ArrayList<ShipCabinView>();
 			travellerNames = new ArrayList<TravellerView>();
-			return "success";
+			return "selectCabins";
 		} catch (Exception e) {
 			return "retry";
 		}
@@ -120,27 +148,32 @@ public class ReservationHandler implements Serializable {
 				return "retry";
 			}
 		}
-		else
+		else			
 			return "retry";
 	}
-
+	
 	public String saveReservation() {
 		try {
 			ReservationService resservice = service.getReservationService();
 
 			ReservationView res = new ReservationView();
 			res.setCars(cars);
+			
+			selectedShipCabins = new ArrayList<ShipCabinView>();
+			for (ShipCabinView cab : shipCabins) {
+				if (cab.getRes_count() > 0)
+					selectedShipCabins.add(cab);
+			}
 			res.setShipCabins(selectedShipCabins);
 			res.setTravellerNames(travellerNames);
 			res.setTrip(tripHandler.getTrip());
 			res.setCustomer(customer);
 
 			if(null != reservation){
-				System.out.println("update");
 				res.setReservation_id(reservation.getReservation_id());
 				res.setRoute(reservation.getRoute());
 
-				resservice.updateReservation(reservation);
+				resservice.updateReservation(res);
 				reservation = null;
 				
 			}else
@@ -158,6 +191,50 @@ public class ReservationHandler implements Serializable {
 	}
 
 	private boolean spacefree(){
+		FreeSpaceService isfree = service.getFreeSpaceService();
+		int bookedcapacity = 0;
+		for(ShipCabinView shipcab : shipCabins){
+			switch(shipcab.getCabinDescr()){
+				case "A1":
+					missingspacea1 = !isfree.ismissingspacecabin(shipcab, tripHandler.getTrip());
+					break;
+				case "A2":
+					missingspacea2 = !isfree.ismissingspacecabin(shipcab, tripHandler.getTrip());
+					break;
+				case "B1":
+					missingspaceb1 = !isfree.ismissingspacecabin(shipcab, tripHandler.getTrip());
+					break;
+				case "B2":
+					missingspaceb2 = !isfree.ismissingspacecabin(shipcab, tripHandler.getTrip());
+					break;
+				case "C1":
+					missingspacec1 = !isfree.ismissingspacecabin(shipcab, tripHandler.getTrip());
+					break;
+				case "C2":
+					missingspacec2 = !isfree.ismissingspacecabin(shipcab, tripHandler.getTrip());
+					break;
+			}
+			bookedcapacity += shipcab.getRes_count();
+		}
+		
+		
+		if(bookedcapacity < travellerNames.size()){
+			missingspacetravellers = true;
+		}else{
+			missingspacetravellers = false;
+		}
+		
+		missingspacecars = !isfree.ismissingspacecars(this.cars, tripHandler.getTrip());
+		
+		if(missingspacea1) return false;
+		if(missingspacea2) return false;
+		if(missingspaceb1) return false;
+		if(missingspaceb2) return false;
+		if(missingspacec1) return false;
+		if(missingspacec2) return false;
+		if(missingspacecars) return false;
+		if(missingspacetravellers) return false;
+		
 		return true;
 	}
 
@@ -247,5 +324,77 @@ public class ReservationHandler implements Serializable {
 
 	public void setCustomer(CustomerView customer) {
 		this.customer = customer;
+	}
+
+	public ReservationView getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(ReservationView reservation) {
+		this.reservation = reservation;
+	}
+
+	public boolean isMissingspacecars() {
+		return missingspacecars;
+	}
+
+	public void setMissingspacecars(boolean missingspacecars) {
+		this.missingspacecars = missingspacecars;
+	}
+
+	public boolean isMissingspacetravellers() {
+		return missingspacetravellers;
+	}
+
+	public void setMissingspacetravellers(boolean missingspacetravellers) {
+		this.missingspacetravellers = missingspacetravellers;
+	}
+
+	public boolean isMissingspacea1() {
+		return missingspacea1;
+	}
+
+	public void setMissingspacea1(boolean missingspacea1) {
+		this.missingspacea1 = missingspacea1;
+	}
+
+	public boolean isMissingspacea2() {
+		return missingspacea2;
+	}
+
+	public void setMissingspacea2(boolean missingspacea2) {
+		this.missingspacea2 = missingspacea2;
+	}
+
+	public boolean isMissingspaceb1() {
+		return missingspaceb1;
+	}
+
+	public void setMissingspaceb1(boolean missingspaceb1) {
+		this.missingspaceb1 = missingspaceb1;
+	}
+
+	public boolean isMissingspaceb2() {
+		return missingspaceb2;
+	}
+
+	public void setMissingspaceb2(boolean missingspaceb2) {
+		this.missingspaceb2 = missingspaceb2;
+	}
+
+	public boolean isMissingspacec1() {
+		return missingspacec1;
+	}
+
+	public void setMissingspacec1(boolean missingspacec1) {
+		this.missingspacec1 = missingspacec1;
+	}
+
+	public boolean isMissingspacec2() {
+		return missingspacec2;
+	}
+
+	public void setMissingspacec2(boolean missingspacec2) {
+		this.missingspacec2 = missingspacec2;
 	}
 }

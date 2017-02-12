@@ -14,17 +14,23 @@
 <ui:composition template="/WEB-INF/pages/base.xhtml">
 	<ui:define name="content">	
 		<p style="text-align:center">		
-			<h:form>
+			<h:form id="inputForm">
 				<h:panelGrid columns = "2">
-					<h:outputLabel value="Benutzername" for="username"/>
+					<h:outputLabel value="#{msg.onlineferries_login_form_username}" for="username"/>
 					<h:inputText id="username" value="#{loginHandler.customer.email}" 
-						required ="true" requiredMessage="#{msg.onlineferries_login_form_required_username}" validator="#{loginHandler.validateUsername}"/>
+						required ="true" 
+						requiredMessage="#{msg.onlineferries_login_form_required_username}" 
+						validator="#{loginHandler.validateUsername}">
+						<f:ajax listener="#{loginHandler.userchanged}"
+							event="change" render="@form" />
+<!-- 							execute="@inputForm" -->
+							
+					</h:inputText>
 				</h:panelGrid>
-				
 				<h:panelGrid columns ="2">
 					<f:facet name="header">#{msg.onlineferries_register}</f:facet>
 						
-					<h:outputLabel value="passwort" for="password"/>
+					<h:outputLabel value="#{msg.onlineferries_login_form_password}" for="password"/>
 					<h:inputSecret id="password" value="#{loginHandler.customer.password}" 
 						required ="true" requiredMessage="passwort" validator="#{loginHandler.validatePassword}"/>
 												
@@ -67,7 +73,7 @@
 					<h:inputText id="description" value="#{loginHandler.customer.bank.description}" 
 						required ="true" requiredMessage="req"/>
 					
-					<h:commandButton action="#{loginHandler.register}" value="#{msg.onlineferries_register}"/>	
+					<h:commandButton action="#{loginHandler.update}" value="#{msg.onlineferries_register}"/>	
 				</h:panelGrid>
 			</h:form>
 		</p>

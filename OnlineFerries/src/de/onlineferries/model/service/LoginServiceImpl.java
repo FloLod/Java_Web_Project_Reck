@@ -83,4 +83,81 @@ public class LoginServiceImpl implements LoginService, Serializable {
 		}
 		return done;		
 	}
+
+
+	
+	
+	public CustomerView getUser(String email) {
+		EntityManager em = EntityManagerFactoryService.getEntityManagerFactory().createEntityManager();
+		CustomerView customerView = null;
+
+		try {
+			Query q = em.createQuery("from " + Customer.class.getName() + " where email = :email");
+			q.setParameter("email", email);
+			Customer customer = (Customer) q.getSingleResult();
+			System.out.println("a");
+			if(null != customer){
+				System.out.println("b");
+				customerView = new CustomerView(customer.getId(), customer.getFirstname(), customer.getName(), customer.getPassword());
+				customerView.setEmail(email);
+				customerView.setStreet(customer.getStreet());
+				customerView.setCity(customer.getCity());
+				customerView.setZipcode(customer.getZipcode());
+				BankView bank = new BankView();
+				customerView.setAccount_nr(customer.getAccount_nr());
+				bank.setId(customer.getBank().getId());
+				bank.setDescription(customer.getBank().getDescription());
+				
+				customerView.setBank(bank);
+			}else{
+				System.out.println("c");
+				customerView = new CustomerView();
+				customerView.setBank(new BankView());
+			}
+		} catch (NoResultException ex) {
+			System.out.println("d");
+			customerView = new CustomerView();
+			customerView.setBank(new BankView());
+		} catch (Exception ex) {
+			System.out.println("e");
+			ex.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return customerView;
+	}
+
+
+	
+	public void updateUser(CustomerView user) {
+		EntityManager em = EntityManagerFactoryService.getEntityManagerFactory().createEntityManager();
+		em.getTransaction().begin();
+		Customer c = em.find(Customer.class, user.getCustomer_id());
+		c.setAccount_nr(user.getAccount_nr());
+		c.setCity(user.getCity());
+		c.setEmail(user.getEmail());
+		c.setFirstname(user.getFirstname());
+		c.setName(user.getName());
+		c.setPassword(user.getPassword());
+		c.setStreet(user.getStreet());
+		c.setZipcode(user.getZipcode());
+		
+		Bank b = null;
+		try{
+			b = em.find(Bank.class, user.getBank().getId());
+			b.setDescription(user.getBank().getDescription());
+		}
+		catch(Exception e){
+			b = new Bank();
+			b.setDescription(user.getBank().getDescription());
+			b.setId(user.getBank().getId());
+		}
+		c.setBank(b);
+		em.persist(c);
+		em.getTransaction().commit();
+	}
+
+
+
 }

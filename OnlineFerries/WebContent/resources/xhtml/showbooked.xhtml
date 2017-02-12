@@ -18,11 +18,11 @@
 					<h:column>
 						<f:facet name="header">#{msg.onlineferries_showbooked_trip}</f:facet>
 							<h:panelGrid columns="2">
-								<h:outputLabel value="Abfahrtsdatum:" />
+								<h:outputLabel value="#{msg.onlineferries_showbooked_date}" />
 								<h:outputLabel value="#{res.trip.date}"/>
-								<h:outputLabel value="Abfahrtszeit:" />
+								<h:outputLabel value="#{msg.onlineferries_showbooked_departure}" />
 								<h:outputLabel value="#{res.trip.departure}"/>
-								<h:outputLabel value="Ankunftszeit:" />
+								<h:outputLabel value="#{msg.onlineferries_showbooked_arrival}" />
 								<h:outputLabel value="#{res.trip.arrival}"/>	
 							</h:panelGrid>
 						</h:column>				
@@ -31,22 +31,22 @@
 						<f:facet name="header">#{msg.onlineferries_showbooked_cabins}</f:facet>
 						<h:dataTable value="#{res.shipCabins}" var="cab">
 							<h:column>
-								<f:facet name="header">Kabienentyp</f:facet>
+								<f:facet name="header">#{msg.onlineferries_res_cabtype}</f:facet>
 								<h:outputText value="#{cab.cabinDescr}"/>	
 							</h:column>				
 							
 							<h:column>
-								<f:facet name="header">Preis</f:facet>
+								<f:facet name="header">#{mgs.onlineferries_res_price}</f:facet>
 								<h:outputText value="#{cab.price}"/>						
 							</h:column>
 						
 							<h:column>							
-								<f:facet name="header">Gebuchte Anzahl</f:facet>
+								<f:facet name="header">#{msg.onlineferries_res_count}</f:facet>
 								<h:outputText value="#{cab.res_count}"/>						
 							</h:column>
 						
 							<h:column>							
-								<f:facet name="header">Gesamtkosten Kabienenbuchung</f:facet>
+								<f:facet name="header">#{msg.onlineferries_showbooked_overallcosts}</f:facet>
 								<h:outputText value="#{cab.res_count * cab.price}"/>						
 							</h:column>
 						</h:dataTable>
@@ -58,7 +58,7 @@
 					</h:column>
 					
 					<h:column>
-						<f:facet name="header">#{msg.onlineferries_showbooked_travelers}</f:facet>
+						<f:facet name="header">#{msg.onlineferries_res_travelers}</f:facet>
 						<h:dataTable value="#{res.travellerNames}" var="coTraveler">
 							<h:column>
 								<h:outputText value="#{coTraveler.name}"></h:outputText>

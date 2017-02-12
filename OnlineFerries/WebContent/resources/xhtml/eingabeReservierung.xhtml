@@ -85,6 +85,17 @@
 						
 			<h:panelGrid columns = "2">
 				<h:commandButton action="#{reservationHandler.selectCustomerType}" value="#{msg.onlineferries_res_reservate}"/>
+			</h:panelGrid>
+			
+			<h:panelGrid>
+				<h:outputScript rendered="#{reservationHandler.missingspacea1}"> alert('#{msg.onlineferries_alert_a1}')</h:outputScript>
+				<h:outputScript rendered="#{reservationHandler.missingspacea2}"> alert('#{msg.onlineferries_alert_a2}')</h:outputScript>
+				<h:outputScript rendered="#{reservationHandler.missingspaceb1}"> alert('#{msg.onlineferries_alert_b1}')</h:outputScript>
+				<h:outputScript rendered="#{reservationHandler.missingspaceb2}"> alert('#{msg.onlineferries_alert_b2}')</h:outputScript>
+				<h:outputScript rendered="#{reservationHandler.missingspacec1}"> alert('#{msg.onlineferries_alert_c1}')</h:outputScript>
+				<h:outputScript rendered="#{reservationHandler.missingspacec2}"> alert('#{msg.onlineferries_alert_c2}')</h:outputScript>
+				<h:outputScript rendered="#{reservationHandler.missingspacecars}"> alert('#{msg.onlineferries_alert_cars}')</h:outputScript>
+				<h:outputScript rendered="#{reservationHandler.missingspacetravellers}"> alert('#{msg.onlineferries_alert_travellers}')</h:outputScript>
 			</h:panelGrid>			
 		</h:form>
 	</ui:define>

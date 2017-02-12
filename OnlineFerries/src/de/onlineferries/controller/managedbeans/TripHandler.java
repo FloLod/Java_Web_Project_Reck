@@ -27,7 +27,7 @@ public class TripHandler implements Serializable {
 		try {
 			trips = service.getRouteService().findAllTrips(routeHandler.getRoute().getRoute_id());
 			trip = trips.get(0);
-			return "success";
+			return "showTrips";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "retry";

@@ -44,15 +44,14 @@ public class ReservationServiceImpl implements Serializable, ReservationService 
 
 	@Override
 	public void insertReservation(ReservationView res) {
-		Reservation reservation = convertReservation(res);
-		System.out.println("insert starts");
 		EntityManager em = EntityManagerFactoryService.getEntityManagerFactory().createEntityManager();
+		Reservation reservation = convertReservation(res, em);
 		em.getTransaction().begin();
 		try{
 			em.persist(reservation);
 		}
 		catch(Exception e){
-			
+			e.printStackTrace();
 		}
 		
 		em.getTransaction().commit();
@@ -121,9 +120,8 @@ public class ReservationServiceImpl implements Serializable, ReservationService 
 	
 	public void updateReservation(ReservationView res){
 		EntityManager em = EntityManagerFactoryService.getEntityManagerFactory().createEntityManager();
-		Reservation reservation = convertReservation(res);
-		
 		em.getTransaction().begin();
+		Reservation reservation = convertReservation(res, em);
 		em.remove(em.find(Reservation.class, res.getReservation_id()));		
 		em.getTransaction().commit();
 		
@@ -131,11 +129,9 @@ public class ReservationServiceImpl implements Serializable, ReservationService 
 		
 	}
 	
-	private Reservation convertReservation(ReservationView res){
-		EntityManager em = EntityManagerFactoryService.getEntityManagerFactory().createEntityManager();
+	private Reservation convertReservation(ReservationView res, EntityManager em){
 		Reservation reservation = new Reservation();
 
-		em.getTransaction().begin();
 		Customer c = em.find(Customer.class, res.getCustomer().getCustomer_id());
 		c.getReservations().add(reservation);
 		reservation.setCustomer(c);
@@ -152,13 +148,13 @@ public class ReservationServiceImpl implements Serializable, ReservationService 
 				travelswith.add(travels);
 				em.persist(travels);
 			}
+			reservation.setTravellers(travelswith);
 		}
-		reservation.setTravellers(travelswith);
 		
 		List<CabinReservation> cabinsbooked = new ArrayList<CabinReservation>();		
 		for(ShipCabinView cab : res.getShipCabins()){
 			CabinReservation reservated = new CabinReservation();
-			reservated.setCount(cab.getCount());
+			reservated.setCount(cab.getRes_count());
 			reservated.setReservation(reservation);
 			
 			Cabin cabin = em.find(Cabin.class, cab.getCabin_id());
@@ -168,8 +164,6 @@ public class ReservationServiceImpl implements Serializable, ReservationService 
 		}		
 		reservation.setCabins(cabinsbooked);		
 		reservation.setCars(res.getCars());
-		em.getTransaction().commit();
-		em.close();
 		return reservation;
 	}
 }

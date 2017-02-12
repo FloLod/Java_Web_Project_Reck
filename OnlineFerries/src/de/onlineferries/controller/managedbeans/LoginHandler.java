@@ -43,7 +43,13 @@ public class LoginHandler implements Serializable  {
 	}
 	
 	public String prepareLogin(String nextPage){
-		if(login) return nextPage.concat("ohnelogin");
+		if(login) {
+			System.out.println(customer.getName());
+			if("showRoutes".equals(this.next)) reservationHandler.showRoutes(customer);
+			if("reservieren".equals(this.next)) reservationHandler.setCustomer(customer);
+			if("updateUser".equals(this.next)) this.prepareUseredit();
+			return nextPage.concat("ohnelogin");
+		}
 		this.next = nextPage;
 		return "Login";
 	}
@@ -57,23 +63,40 @@ public class LoginHandler implements Serializable  {
 		
 		if("showRoutes".equals(this.next)) reservationHandler.showRoutes(customer);
 		if("reservieren".equals(this.next)) reservationHandler.setCustomer(customer);
+		if("updateUser".equals(this.next)) this.prepareUseredit();
 		
 		return this.next;
+	}
+	
+	public String prepareUseredit(){
+		customer = new CustomerView();
+		customer.setBank(new BankView());
+		
+		return "startedit";
+	}
+	
+	public String update(){
+		serviceLocator.getLoginService().updateUser(customer);
+		return "update";
+	}
+	
+	public void userchanged(){
+		customer = serviceLocator.getLoginService().getUser(customer.getEmail());
+//		FacesContext.getCurrentInstance().getExternalContext().redirect("");
 	}
 	
 	public String register(){
 		LoginService loginService = serviceLocator.getLoginService();
 		if(loginService.register(customer)){
+			login = true;
 			return "registered";
 		}
-		return "registerationfailed";
-		
+		return "registerationfailed";		
 	}
 
 	public String startRegister(){
 		customer = new CustomerView();
 		customer.setBank(new BankView());
-		System.out.println("startRegister");
 		return "startRegister";
 	}
 	

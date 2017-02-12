@@ -1,5 +1,6 @@
 package de.onlineferries.controller.managedbeans;
 
+import de.onlineferries.model.service.FreeSpaceService;
 import de.onlineferries.model.service.LoginService;
 import de.onlineferries.model.service.ReservationService;
 import de.onlineferries.model.service.RouteService;
@@ -14,4 +15,6 @@ public interface ServiceLocator {
 	public ShipService getShipService();
 
 	public ReservationService getReservationService();
+	
+	public FreeSpaceService getFreeSpaceService();
 }
